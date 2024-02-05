@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { FC } from 'react'
 import { useQuery } from 'react-query'
-import { ImageProps, NewsProps } from '../types'
+import { ImageProps, NewsProps, RoomProps } from '../types'
 import NewsCard from '../components/NewsCard'
+import { Hero } from '../components/Hero'
 
 interface HomepageProps {
   
@@ -14,33 +15,73 @@ const Homepage: FC<HomepageProps> = ({}) => {
             const url = "http://localhost:4000/news";
             const { data } = await axios.get(url)
 
-            return data as NewsProps[]
+            return data?.slice(0, 3) as NewsProps[]
         },
         queryKey: ["news-Frontpage"]
     })
 
+    const {data: rooms} = useQuery({
+        queryFn: async () => {
+            const url = "http://localhost:4000/destinations/danmark/aalborg/overlook-aalborg-city";
+            const { data } = await axios.get(url)
+
+            return data.cities[0].hotels[0].rooms.slice(0, 3) as RoomProps[]
+        },
+        queryKey: ["rooms-Frontpage"]
+    })
     console.log(news);
+    console.log(rooms);
     
 
   return (
     <div>
-        <Hero />
+        <Hero 
+        title='velkommen til hotel overlook online'
+        image='frankfurt-skyline-germany.jpg'
+        />
         <div
-        className='mt-4 px-2'
+        className='max-w-screen-lg mx-auto p-2'
         >
-            <h2
-            className='text-xl font-bold mb-2'
-            >
-                Sidste nyt
-            </h2>
             <div
-            className='newsGrid'
+            className='mt-4 px-2 mb-2'
             >
-                {news && news.map(n => (
-                    <NewsCard 
-                    news={n}
-                    /> 
-                ))}
+                <h2
+                className='text-xl font-bold mb-2'
+                >
+                    Sidste nyt
+                </h2>
+                <div
+                className='newsGrid'
+                >
+                    {news && news.map(n => (
+                        <NewsCard 
+                        news={n}
+                        /> 
+                    ))}
+                </div>
+            </div>
+            <div
+            className='mt-4 px-2 mb-2'
+            >
+                <h2
+                className='text-xl font-bold mb-2'
+                >
+                    Se vores udvalg af værelser
+                </h2>
+                <div
+                className='newsGrid'
+                >
+                    {rooms && rooms.map(r => (
+                        <NewsCard 
+                        news={{
+                            id: r.room_id,
+                            image: {filename: "overlook-grand-marina.jpg"},
+                            teaser: r.description,
+                            title: r.title
+                        }}
+                        /> 
+                    ))}
+                </div>
             </div>
         </div>
     </div>
@@ -48,45 +89,3 @@ const Homepage: FC<HomepageProps> = ({}) => {
 }
 
 export default Homepage
-
-const Hero = () => {
-    
-    const { data } = useQuery({
-        queryFn: async () => {
-            const url = "http://localhost:4000/imagelist"
-            const { data } = await axios.get(url)
-
-            console.log(data);
-            return data[0] as ImageProps
-        },
-        queryKey: ["heroImage"]
-    })
-
-    return (
-        <div
-        className='h-[calc(100vh-110px)] bg-black/20 relative'
-        >
-            <img 
-            className='absolute -z-10 h-full w-full object-cover'
-            src={data?.filename} 
-            alt={data?.title} 
-            />
-            <div
-            className='max-w-screen-lg mx-auto h-full'
-            >
-                <div
-                className='w-2/4 h-full flex flex-col justify-center'
-                >
-                    <h1
-                    className='text-2xl rounded-br-full text-white uppercase py-2 pl-4 bg-black/80'
-                    >
-                        velkommen til hotel overlook online
-                    </h1>
-                    <div 
-                    className='w-[70%] h-4 bg-red-500/80 rounded-br-full'
-                    />
-                </div>
-            </div>
-        </div>
-    )
-}

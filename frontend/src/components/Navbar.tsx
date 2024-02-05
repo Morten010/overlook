@@ -1,34 +1,12 @@
 import { FC } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
+import { navLinks } from '../constants'
 
 interface NavbarProps {
   
 }
 
 const Navbar: FC<NavbarProps> = ({}) => {
-
-  const navLinks = [
-    {
-      title: "Forside",
-      href: "/"
-    },
-    {
-      title: "Hoteller & Desinationer",
-      href: "/"
-    },
-    {
-      title: "Værelser",
-      href: "/"
-    },
-    {
-      title: "Reservation",
-      href: "/"
-    },
-    {
-      title: "Login",
-      href: "/"
-    }
-  ]
 
   return (
     <nav
@@ -49,11 +27,12 @@ const Navbar: FC<NavbarProps> = ({}) => {
             <li
             className='last:border-none border-r text-white pr-2 leading-4 hover:text-red-600 transition-colors uppercase'
             >
-              <Link
+              <NavLink
+              className={({ isActive}) => isActive ? "text-red-600" : ""}
               to={link.href}
               >
                 {link.title}
-              </Link>
+              </NavLink>
             </li>
           ))}
         </ul>
