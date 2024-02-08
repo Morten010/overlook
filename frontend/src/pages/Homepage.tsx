@@ -2,8 +2,8 @@ import axios from 'axios'
 import { FC } from 'react'
 import { useQuery } from 'react-query'
 import { ImageProps, NewsProps, RoomProps } from '../types'
-import NewsCard from '../components/NewsCard'
 import { Hero } from '../components/Hero'
+import NewsCard from '../components/NewsCard'
 
 interface HomepageProps {
   
@@ -29,8 +29,7 @@ const Homepage: FC<HomepageProps> = ({}) => {
         },
         queryKey: ["rooms-Frontpage"]
     })
-    console.log(news);
-    console.log(rooms);
+    
     
 
   return (
@@ -71,8 +70,9 @@ const Homepage: FC<HomepageProps> = ({}) => {
                 <div
                 className='newsGrid'
                 >
-                    {rooms && rooms.map(r => (
+                    {rooms && rooms.map((r, index) => (
                         <NewsCard 
+                        key={"home" + r.title}
                         news={{
                             id: r.room_id,
                             image: {filename: "overlook-grand-marina.jpg"},

@@ -13,7 +13,7 @@ export const navLinks = [
     },
     {
       title: "Reservation",
-      href: "/reservations"
+      href: "/reservation"
     },
     {
       title: "Login",

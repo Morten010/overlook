@@ -11,7 +11,7 @@ const NewsCard: FC<NewsCardProps> = ({news}) => {
 
   return (
     <div
-    className='flex flex-col gap-2 shadow-xl relative overflow-hidden cursor-pointer'
+    className='flex flex-col gap-2 shadow-xl relative overflow-hidden cursor-pointer max-w-[500px]'
     onMouseEnter={() => {
         setHide(false)
     }}

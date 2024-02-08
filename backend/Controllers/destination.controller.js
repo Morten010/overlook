@@ -226,7 +226,9 @@ export default class DestinationController {
 							['id', 'hotel_id'], 
 							'slug', 
 							'title',
-							'description'
+							'description',
+							"address",
+							"phone"
 
 						],
 						include: [{
@@ -251,8 +253,17 @@ export default class DestinationController {
 								'num_persons', 
 								'area', 
 								'day_price_normal', 
-								'day_price_flex'
+								'day_price_flex',
 							],
+							include: [
+								{
+									model: Image,
+									attributes: [
+										"filename",
+										"title"
+									]
+								}
+							]
 						}],
 						where: { slug: hotel }
 					}],
@@ -333,12 +344,10 @@ export default class DestinationController {
 							],
 							include: [{
 								model: RoomFacility,
-								attributes: ['title']
-							},
-			{
-								model: RoomFacility,
-								attributes: ['title']
-							},
+									attributes: [
+										'title'
+									]
+								},
 							],
 							where: { slug: room }
 						}],
