@@ -115,7 +115,7 @@ const Reservation: FC<ReservationProps> = ({}) => {
         selected={hotel}
         setSelected={setHotel}
         title='Vælg destination & hotel'
-        options={data ? data : ["Loading..."]}
+        options={data ? data : [{title: "Loading", value: ""}]}
         />
         <div
         className='grid grid-cols-2 mt-3 gap-3'
