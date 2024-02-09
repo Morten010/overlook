@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { FC, useEffect, useRef, useState } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 interface RoomAccordionProps {
     room: {
@@ -30,10 +31,11 @@ interface RoomAccordionProps {
               roomId: number
               imageId: number
           }
-      }[]
+      }[],
     }
+    hotelPath: string
 }
-const RoomAccordion: FC<RoomAccordionProps> = ({ room }) => {
+const RoomAccordion: FC<RoomAccordionProps> = ({ room, hotelPath }) => {
     const [open, setOpen] = useState(false)
     const imageHeight = useRef<HTMLDivElement>(null)
     console.log(room);
@@ -47,8 +49,6 @@ const RoomAccordion: FC<RoomAccordionProps> = ({ room }) => {
     }
     useEffect(() => {
         if (imageHeight.current) {
-            console.log(imageHeight.current.offsetTop);
-            console.log(imageHeight.current.offsetHeight);
             setHeight(imageHeight.current.offsetHeight)
             SetOffSet(imageHeight.current.offsetTop)
           }        
@@ -106,18 +106,24 @@ const RoomAccordion: FC<RoomAccordionProps> = ({ room }) => {
                     </>
                 )}
                 <div
-                className='self-end mt-auto text-end'
+                className='self-end mt-auto text-end box-border'
                 >
-                    {open && <p
-                    className='text-lg font-bold bg-red-600 text-white p-2 mt-3'
+                    {open && <Link
+
+                    to={`/reservation?flex=1&room=${room.room_id}&hotel=${hotelPath}`}
                     >
-                        Flex Fra {room.day_price_flex.toLocaleString("da-dk", {})} DKK
-                    </p>}
-                    <p
-                    className='text-xl font-bold'
+                        <div
+                        className='text-lg font-bold bg-red-600 text-white p-2 mt-3 cursor-pointer hover:opacity-80 transition-opacity'
+                        >
+                            Flex Fra {room.day_price_flex.toLocaleString("da-dk", {})} DKK
+                        </div>
+                    </Link>}
+                    <Link
+                    to={`/reservation?flex=0&room=${room.room_id}&hotel=${hotelPath}`}
+                    className='text-xl font-bold cursor-pointer p-2 box-border hover:text-red-600 transition-colors'
                     >
                         Fra {room.day_price_normal.toLocaleString("da-dk", {})} DKK
-                    </p>
+                    </Link>
                 </div>
                 
             </div>

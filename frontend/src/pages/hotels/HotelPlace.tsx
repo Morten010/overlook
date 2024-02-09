@@ -75,6 +75,7 @@ const HotelPlace: FC<HotelPlaceProps> = ({}) => {
                     {hotel?.cities[0].hotels[0].rooms.map(room => (
                         <RoomAccordion 
                         room={room}
+                        hotelPath={`/destinations/${params.country}/${params.city}/${params.hotel}`}
                         />
                     ))}
                 </div>

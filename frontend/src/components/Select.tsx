@@ -21,7 +21,6 @@ interface SelectProps {
 
 const Select: FC<SelectProps> = ({title, options, selected, setSelected, disabled = false}) => {
     const [open, setOpen] = useState(false);
-    console.log(disabled);
     
   return (
     <>
@@ -29,6 +28,8 @@ const Select: FC<SelectProps> = ({title, options, selected, setSelected, disable
       className='absolute top-0 left-0 w-full h-[calc(100vh-20px)] z-[5] '
       onClick={() => disabled ? null : setOpen(false)}
       />}
+
+
       <AnimatePresence>
           <div
           className={`rounded-lg select-none relative ${disabled ? "opacity-60 transition-opacity  cursor-not-allowed" : "cursor-pointer"}`}
@@ -62,7 +63,7 @@ const Select: FC<SelectProps> = ({title, options, selected, setSelected, disable
                       transition={{
                           delay: 0.16
                       }}
-                      className='p-2 px-4 hover:bg-[#fafafa]'
+                      className={`p-2 px-4 ${selected.title === option.title ? "bg-blue-50 hover:bg-blue-100" : "hover:bg-[#fafafa]"}`}
                       onClick={() => {
                         setSelected(option)
                         setOpen(false)

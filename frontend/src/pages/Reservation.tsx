@@ -5,6 +5,7 @@ import { useMutation, useQuery } from 'react-query'
 import axios from 'axios'
 import { useUser } from '../store/useUser'
 import { toast } from 'sonner'
+import { useSearchParams } from 'react-router-dom'
 
 interface ReservationProps {
   
@@ -26,6 +27,11 @@ type PayloadProps = {
 }
 
 const Reservation: FC<ReservationProps> = ({}) => {
+    const [searchParams, setSearchParams] = useSearchParams()
+    const flex = searchParams.get("flex")
+    const hotelPath = searchParams.get("hotel");
+    
+    
     const { user, jwt } = useUser()
     const [hotel, setHotel] = useState({
         value: "",
@@ -44,7 +50,7 @@ const Reservation: FC<ReservationProps> = ({}) => {
         roomType: [] as { title: string; value: any; }[]
     })
     const [form, setForm] = useState({
-        isFlex: 0, 
+        isFlex: flex ? parseInt(flex) : 0 ,
         checkin: '',
         checkout:'',
         firstname: "",
@@ -123,6 +129,27 @@ const Reservation: FC<ReservationProps> = ({}) => {
         }
         getData()
     }, [hotel, room])
+
+    useEffect(() => {
+
+        const fetchData = async () => {
+            const { data: country } = await axios.get(`http://localhost:4000${hotelPath}`)
+            const c = country.cities[0]
+            const h = c.hotels[0]
+            
+            setHotel({ 
+                value: hotelPath?.replace("/", "")!, 
+                title: `${country.name} ${c.name} - ${h.title}`
+            })
+
+        }
+
+        if(hotelPath){
+            fetchData()
+        }
+      
+    }, [])
+    
 
     const { mutate: submitForm } = useMutation({
         mutationFn: async (payload: PayloadProps) => {
