@@ -22,6 +22,9 @@ export type RoomProps = {
     day_price_normal: number
     day_price_flex: number
     room_facilities: any[] 
+    images: {
+      filename: string
+    }[]
 }
 
 export type CountriesProps = {

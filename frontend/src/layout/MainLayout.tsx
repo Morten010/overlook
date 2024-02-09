@@ -11,7 +11,11 @@ const MainLayout: FC<MainLayoutProps> = ({}) => {
   return (
     <>
         <Navbar />
-        <Outlet />
+        <div
+        className='min-h-screen pt-[104px]'
+        >
+          <Outlet />
+        </div>
         <Footer />
     </>
   )

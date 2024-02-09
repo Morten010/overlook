@@ -10,7 +10,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
 
   return (
     <nav
-    className='p-5 bg-black '
+    className='p-5 bg-black fixed w-full z-[300] top-0 left-0'
     >
       <div
       className='flex justify-between items-end max-w-screen-lg mx-auto'

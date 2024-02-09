@@ -75,7 +75,7 @@ const Homepage: FC<HomepageProps> = ({}) => {
                         key={"home" + r.title}
                         news={{
                             id: r.room_id,
-                            image: {filename: "overlook-grand-marina.jpg"},
+                            image: r.images[0],
                             teaser: r.description,
                             title: r.title
                         }}
