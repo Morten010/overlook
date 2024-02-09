@@ -8,7 +8,7 @@ Built with ❤️
 
 1. **Clone Repository:**
 
-git clone <repository-url>
+    git clone <repository-url>
 
 
 2. **Navigate to Backend:**
