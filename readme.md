@@ -13,7 +13,7 @@ Built with ❤️
 
 2. **Navigate to Backend:**
 
-cd backend
+    cd backend
 
 
 3. **Create Environment File:**
