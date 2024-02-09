@@ -26,6 +26,7 @@ class ReservationController {
 	 * @param {Object} res Express Response Object
 	 */
 	list = async (req, res) => {
+		console.log("list");
 		// Destructure Assignment - optional list management
 		let { sortkey, sortdir, limit, attributes } = req.query
 		// Sætter array til sort og retning
@@ -40,7 +41,15 @@ class ReservationController {
 		const result = await Reservations.findAll({
 			attributes: attr,
 			order: [order],
-			limit: limit
+			limit: limit,
+			include: [{
+				model: Hotel,
+				attributes: ["title"]
+			},
+			{
+				model: Room,
+				attributes: ["title"]
+			}]
 		})
 		// Udskriver resultat i json format
 		res.json(result)
@@ -52,6 +61,7 @@ class ReservationController {
 	 * @param {Object} res Express Response Object
 	 */
 	details = async (req, res) => {
+		console.log("details");
 		// Destructure assignment af id. 
 		const { id } = req.params || 0
 		// Eksekverer sequelize metode med attributter og where clause

@@ -31,7 +31,7 @@ const Select: FC<SelectProps> = ({title, options, selected, setSelected, disable
       />}
       <AnimatePresence>
           <div
-          className={`rounded-lg cursor-pointer select-none relative ${disabled ? "opacity-60 transition-opacity cursor-not-allowed" : ""}`}
+          className={`rounded-lg select-none relative ${disabled ? "opacity-60 transition-opacity  cursor-not-allowed" : "cursor-pointer"}`}
           >
               <div
               className={`p-2 px-4 bg-white flex justify-between items-center z-10 ${open ? "border-b rounded-t-lg": " rounded-lg"}`}

@@ -13,6 +13,7 @@ import HotelsCountry from './pages/hotels/HotelsCountry'
 import { useUser } from './store/useUser'
 import Reservation from './pages/Reservation'
 import Admin from './pages/dashboard/Admin'
+import { Toaster } from 'sonner'
 
 const queryClient = new QueryClient()
 
@@ -45,7 +46,7 @@ function App() {
               <Route path='/admin' element={user ? <Admin /> : <Navigate to="/login" />} />
               {/* auth routes */}
 
-              <Route path='/reservation' element={<Reservation />} />
+              <Route path='/reservation' element={user ? <Reservation /> : <Navigate to="/login" />} />
 
 
               {/* 404 page */}
@@ -58,6 +59,7 @@ function App() {
 
             </Route>
           </Routes>
+          <Toaster richColors/>
         </BrowserRouter>
       </QueryClientProvider>
     </>
